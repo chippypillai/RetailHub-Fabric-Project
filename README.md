@@ -1,91 +1,126 @@
 # 🛒 RetailHub – End-to-End Microsoft Fabric Data Engineering Project
 
-> An enterprise-style Data Engineering solution built using Microsoft Fabric, implementing Medallion Architecture, Delta Lake, PySpark, Fabric Pipelines, Semantic Models and Power BI.
+> An enterprise-style Data Engineering project built using **Microsoft Fabric**, demonstrating modern data engineering practices through **Medallion Architecture**, **Delta Lake**, **PySpark**, **Microsoft Fabric Pipelines**, **Semantic Models**, and **Power BI**.
 
 ---
 
-# Project Overview
+# 📌 Project Overview
 
-RetailHub is an end-to-end Data Engineering project built using **Microsoft Fabric** to simulate a real-world retail analytics platform.
+RetailHub is an end-to-end Data Engineering solution built using Microsoft Fabric that transforms raw retail transaction data into business-ready analytical datasets.
 
-The project demonstrates how raw retail transaction data can be ingested, transformed, validated and modelled into business-ready datasets using a modern **Medallion Architecture (Bronze → Silver → Gold)**.
+The project demonstrates a modern Medallion Architecture (Bronze → Silver → Gold) while implementing production-inspired engineering concepts including:
 
-The solution incorporates production-inspired engineering practices including incremental loading, Delta Lake storage, data quality validation, pipeline orchestration and interactive business reporting.
-
----
-
-# Business Problem
-
-Retail organisations process thousands of sales transactions every day.
-
-Raw transactional data frequently contains:
-
-- Missing customer information
-- Cancelled invoices
-- Duplicate transactions
-- Invalid quantities
-- Zero-priced products
-- Inconsistent data formats
-
-Without proper cleansing and transformation, these issues result in inaccurate reporting and poor business decisions.
-
-RetailHub demonstrates how Microsoft Fabric can transform raw retail data into trusted, analytics-ready datasets.
+- Incremental Data Loading
+- Delta Lake Storage
+- Data Quality Validation
+- PySpark Transformations
+- Fabric Pipeline Orchestration
+- Direct Lake Semantic Model
+- Power BI Reporting
 
 ---
 
-# Solution Architecture
+# 🎯 Business Problem
 
-```
-                      Online Retail Dataset
+Retail organisations generate thousands of sales transactions every day.
+
+Raw transactional data often contains:
+
+- Missing Customer IDs
+- Cancelled Orders
+- Duplicate Records
+- Invalid Quantities
+- Zero-Priced Products
+- Inconsistent Data Types
+
+Without proper data engineering processes, these issues lead to inaccurate reporting and poor business decisions.
+
+RetailHub demonstrates how Microsoft Fabric transforms raw transactional data into trusted, business-ready datasets.
+
+---
+
+# 🏗️ Solution Architecture
+
+```text
+                    Online Retail Dataset (CSV)
                                │
                                ▼
-                    Bronze Layer (Raw Delta)
-             Incremental Loading + Raw Storage
+                    🥉 Bronze Lakehouse Layer
+               Raw Data + Incremental Loading
                                │
                                ▼
-               Silver Layer (Validated Delta)
-      Data Cleaning • Business Rules • Data Quality
+                    🥈 Silver Lakehouse Layer
+         Data Cleaning • Validation • Business Rules
                                │
                                ▼
-              Gold Layer (Business Data Model)
-         KPIs • Customer Analytics • Sales Analytics
+                     🥇 Gold Lakehouse Layer
+              Business Ready Analytical Tables
                                │
                                ▼
-                  Microsoft Fabric Pipeline
+                 Microsoft Fabric Pipeline
                                │
                                ▼
                  Direct Lake Semantic Model
                                │
                                ▼
-                 Power BI Executive Dashboard
+                Power BI Executive Dashboard
 ```
+
+> **Note:** A professional architecture diagram will replace this placeholder in a future update.
 
 ---
 
-# Technology Stack
+# 📷 Solution Screenshots
+
+## Microsoft Fabric Workspace
+
+![Microsoft Fabric Workspace](images/workspace.png)
+
+---
+
+## Lakehouse
+
+![Lakehouse](images/lakehouse.png)
+
+---
+
+## Microsoft Fabric Pipeline
+
+![Pipeline](images/pipeline.png)
+
+---
+
+## Power BI Executive Dashboard
+
+![Dashboard](images/dashboard.png)
+
+---
+
+# 🛠️ Technology Stack
 
 | Technology | Purpose |
 |------------|---------|
 | Microsoft Fabric | End-to-End Data Platform |
-| OneLake | Unified Storage |
+| OneLake | Unified Data Storage |
 | Lakehouse | Central Data Repository |
-| Delta Lake | ACID Data Storage |
+| Delta Lake | ACID Storage Format |
 | PySpark | Data Transformation |
-| Spark SQL | Analytics & Validation |
+| Spark SQL | Data Analysis |
 | Fabric Pipelines | Workflow Orchestration |
 | Semantic Model | Reporting Layer |
-| Power BI | Executive Dashboard |
+| Direct Lake | High Performance Analytics |
+| Power BI | Dashboard & Visualisation |
 
 ---
 
-# Dataset
+# 📂 Dataset
 
 **Dataset:** Online Retail Dataset (UCI Machine Learning Repository)
 
-The dataset contains transactional sales records including:
+The dataset contains retail transactions with the following fields:
 
 - Invoice Number
-- Product Code
+- Stock Code
 - Product Description
 - Quantity
 - Invoice Date
@@ -95,18 +130,16 @@ The dataset contains transactional sales records including:
 
 ---
 
-# Medallion Architecture
+# 🥉 Bronze Layer
 
-## 🥉 Bronze Layer
+## Purpose
 
-### Purpose
-
-- Load raw retail transactions
+- Load raw retail transaction data
 - Store source data as Delta Tables
-- Perform incremental loading
-- Preserve historical raw records
+- Implement Incremental Loading
+- Preserve original records
 
-### Output
+**Output Table**
 
 ```
 bronze_sales
@@ -114,15 +147,13 @@ bronze_sales
 
 ---
 
-## 🥈 Silver Layer
+# 🥈 Silver Layer
 
-### Purpose
+## Purpose
 
 Transform raw data into trusted analytical datasets.
 
 ### Data Quality Rules
-
-Implemented validations include:
 
 - Remove duplicate records
 - Handle missing Customer IDs
@@ -131,7 +162,7 @@ Implemented validations include:
 - Validate negative quantities
 - Standardise data types
 - Extract Year and Month
-- Calculate Total Amount
+- Calculate TotalAmount
 
 ### Business Flags
 
@@ -140,7 +171,7 @@ Implemented validations include:
 - IsZeroPrice
 - IsNegativeQuantity
 
-### Output
+**Output Table**
 
 ```
 silver_sales
@@ -148,114 +179,91 @@ silver_sales
 
 ---
 
-## 🥇 Gold Layer
+# 🥇 Gold Layer
 
-Business-ready analytical tables created for reporting.
+Business-ready analytical tables used for reporting.
 
 | Table | Description |
-|---------|------------|
+|--------|-------------|
 | gold_sales_summary | Executive KPIs |
 | gold_monthly_sales | Monthly Revenue Trends |
 | gold_country_sales | Country Performance |
-| gold_product_performance | Best Selling Products |
-| gold_customer_summary | Customer Insights |
+| gold_product_performance | Product Analysis |
+| gold_customer_summary | Customer Analysis |
 
 ---
 
-# Pipeline Orchestration
+# 🔄 Pipeline Orchestration
 
 The Microsoft Fabric Pipeline orchestrates the complete data flow.
 
-```
+```text
 Bronze Notebook
-        │
-        ▼
+       │
+       ▼
 Silver Notebook
-        │
-        ▼
+       │
+       ▼
 Gold Notebook
 ```
 
-Future enhancement:
+Future Enhancement
 
-```
-Gold
-   │
+```text
+Gold Notebook
+       │
+       ▼
 Refresh Semantic Model
-   │
-Notify Users
+       │
+       ▼
+Email Notification
 ```
 
 ---
 
-# Incremental Loading
+# ⚡ Incremental Loading
 
-RetailHub implements an incremental loading strategy to improve efficiency.
+RetailHub implements an incremental loading strategy to process only new records.
 
-```
-Incoming Data
+```text
+Incoming Records
         │
         ▼
 Compare Business Key
         │
  ┌───────────────┐
- │ Already Exists│
+ │Already Exists?│
  └──────┬────────┘
         │
-  Yes         No
-   │           │
- Skip      Insert
+   Yes      No
+    │        │
+ Skip    Insert
 ```
 
-Benefits:
+### Benefits
 
 - Faster processing
 - Reduced compute cost
-- Scalable architecture
-- Avoid duplicate records
+- Improved scalability
+- Prevents duplicate records
 
 ---
 
-# Sample SQL Analytics
+# ⭐ Key Features
 
-```sql
-SELECT Country,
-       SUM(TotalAmount) AS Revenue
-FROM gold_country_sales
-GROUP BY Country
-ORDER BY Revenue DESC;
-```
-
----
-
-# Power BI Dashboard
-
-Executive dashboard includes:
-
-- Executive KPI Cards
-- Monthly Revenue Trend
-- Country Performance
-- Product Performance
-- Customer Spend Analysis
-
----
-
-# Project Features
-
-- End-to-End Microsoft Fabric Project
+- End-to-End Microsoft Fabric Solution
 - Medallion Architecture
-- Incremental Loading
-- Delta Lake Tables
-- PySpark Data Engineering
+- Incremental Data Loading
+- Delta Lake Storage
+- PySpark Data Processing
 - Spark SQL Analytics
-- Microsoft Fabric Pipelines
-- Semantic Models
-- Direct Lake
-- Power BI Dashboard
+- Fabric Pipeline Orchestration
+- Direct Lake Semantic Model
+- Interactive Power BI Dashboard
 
 ---
 
-# Skills Demonstrated
+# 🚀 Skills Demonstrated
 
 - Microsoft Fabric
 - Data Engineering
@@ -266,31 +274,39 @@ Executive dashboard includes:
 - Spark SQL
 - ETL / ELT
 - Incremental Loading
-- Data Quality Validation
+- Data Validation
 - Medallion Architecture
 - Pipeline Orchestration
 - Data Modelling
 - Semantic Models
-- Business Intelligence
 - Power BI
 
 ---
 
-# Repository Structure
+# 📁 Repository Structure
 
-```
+```text
 RetailHub/
 
 │── notebooks/
-│     ├── Bronze
-│     ├── Silver
-│     └── Gold
+│     ├── 001_Bronze_Layer.ipynb
+│     ├── 002_Silver_Layer.ipynb
+│     └── 003_Gold_Layer.ipynb
+
+│── SQL/
+│     ├── silver_queries.sql
+│     ├── gold_queries.sql
+│     └── analytics_queries.sql
 
 │── pipeline/
 
 │── dashboard/
 
 │── images/
+│     ├── workspace.png
+│     ├── lakehouse.png
+│     ├── pipeline.png
+│     └── dashboard.png
 
 │── docs/
 │     ├── EngineeringDesignDocument.pdf
@@ -302,20 +318,20 @@ RetailHub/
 
 ---
 
-# Future Enhancements
+# 🔮 Future Enhancements
 
 - Automated Data Quality Monitoring
 - Semantic Model Refresh from Pipeline
 - Slowly Changing Dimensions (SCD Type 2)
-- CI/CD using Azure DevOps
 - Parameterised Pipelines
+- Azure DevOps CI/CD
 - Real-Time Streaming
-- Data Warehouse Implementation
+- Data Warehouse Integration
 - Monitoring & Alerting
 
 ---
 
-# Author
+# 👨‍💻 Author
 
 **Chippy Pillai**
 
@@ -323,8 +339,10 @@ MSc Data Analytics
 
 Aspiring Microsoft Fabric Data Engineer
 
-🔗 LinkedIn: *(Add your profile)*
+🔗 LinkedIn: *(Add your LinkedIn profile URL)*
 
-💻 GitHub: *(Add your GitHub profile)*
+💻 GitHub: *(Add your GitHub profile URL)*
 
 ---
+
+⭐ If you found this project interesting, feel free to star the repository and connect with me on LinkedIn.
